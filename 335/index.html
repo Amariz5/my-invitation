@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>دعوت‌نامه</title>
+    <style>
+        body {
+            margin: 0; padding: 0; height: 100vh;
+            display: flex; justify-content: center; align-items: center;
+            font-family: 'Tahoma', sans-serif;
+            background-color: #002d2d; 
+            background-image: url('wp16546717-dark-green-nature-4k-wallpapers.webp');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            color: #e0f7fa; text-align: center; overflow: hidden;
+        }
+
+        .container {
+            background: rgba(0, 30, 30, 0.7);
+            padding: 40px; border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(100, 200, 200, 0.3);
+            width: 90%; max-width: 500px;
+            position: relative;
+        }
+
+        button {
+            padding: 12px 30px; font-size: 1.1rem; cursor: pointer;
+            border: none; border-radius: 25px; margin: 10px;
+            transition: 0.2s; font-weight: bold;
+        }
+
+        #yesBtn { background: #00796b; color: white; }
+        
+        #dodge-area {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none; 
+            z-index: 5;
+        }
+
+        #noBtn { 
+            background: #455a64; color: white; 
+            position: absolute;
+            left: 50%; top: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: auto; 
+            z-index: 10;
+        }
+        
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <div id="startScreen" class="container">
+        <h1 style="margin-top: 0;">سلام خانم‌هه! 👋</h1>
+        <button onclick="start()">بزن بریم</button>
+    </div>
+
+    <div id="questionScreen" class="container hidden">
+        <h1>میای بریم بیرون خانم‌هه؟ 🌲</h1>
+        <div style="margin-bottom: 50px;">
+            <button id="yesBtn" onclick="accept()">آره!</button>
+        </div>
+        
+        <div id="dodge-area">
+            <button id="noBtn" onmouseover="dodge()">نه</button>
+        </div>
+    </div>
+
+    <div id="finalScreen" class="container hidden">
+        <h1 style="margin-top: 0;">هورااا! 🎉</h1>
+        <p>زمان و مکانشو با هم هماهنگ می‌کنیم!</p>
+    </div>
+
+    <script>
+        let dodgeCount = 0;
+        
+        function start() {
+            document.getElementById('startScreen').classList.add('hidden');
+            document.getElementById('questionScreen').classList.remove('hidden');
+        }
+
+        function accept() {
+            document.getElementById('questionScreen').classList.add('hidden');
+            document.getElementById('finalScreen').classList.remove('hidden');
+        }
+
+        function dodge() {
+            const btn = document.getElementById('noBtn');
+            const container = document.getElementById('questionScreen');
+            
+            if (dodgeCount < 15) {
+                const maxX = container.clientWidth - btn.clientWidth - 20;
+                const maxY = container.clientHeight - btn.clientHeight - 20;
+                
+                const newX = Math.random() * maxX;
+                const newY = Math.random() * maxY;
+                
+                btn.style.left = newX + 'px';
+                btn.style.top = newY + 'px';
+                
+                dodgeCount++;
+                
+              
+                if (dodgeCount === 6) {
+                    alert("یعنی انقدر بدم که نمیای بریم؟؟ 😭😭");
+                } else if (dodgeCount === 11) {
+                    alert("خسته شو دیگههه 😭😭");
+                }
+                
+            } else {           
+                btn.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
